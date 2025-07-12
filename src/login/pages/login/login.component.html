@@ -1,0 +1,53 @@
+@let realm = kcContext.realm;
+@let usernameHidden = kcContext.usernameHidden;
+@let auth = kcContext.auth;
+@let messagesPerField = kcContext.messagesPerField;
+@let url = kcContext.url;
+@let login = kcContext.login;
+
+<form
+  id="kc-form-login"
+  class="login-form"
+  method="post"
+  [action]="url?.loginAction"
+  (onSubmit)="isLoginButtonDisabled.set(true)"
+>
+  <div [kcClass]="'kcFormGroupClass'">
+    <input
+      tabindex="2"
+      id="username"
+      name="username"
+      type="text"
+      autofocus
+      [kcClass]="'kcInputClass'"
+      [defaultValue]="login?.username || ''"
+      [attr.aria-invalid]="messagesPerField?.existsError('username', 'password')"
+    />
+  </div>
+
+  <div [kcClass]="'kcFormGroupClass'">
+    <input
+      tabindex="3"
+      id="password"
+      name="password"
+      type="password"
+      autocomplete="off"
+      [kcClass]="'kcInputClass'"
+      [attr.aria-invalid]="messagesPerField.existsError('username', 'password')"
+    />
+  </div>
+  <div
+    id="kc-form-buttons"
+    [kcClass]="'kcFormGroupClass'"
+  >
+    <input
+      tabindex="7"
+      name="login"
+      id="kc-login"
+      type="submit"
+      [kcClass]="['kcButtonClass', 'kcButtonPrimaryClass', 'kcButtonBlockClass', 'kcButtonLargeClass']"
+      [value]="i18n.msgStr('doLogIn')"
+      [disabled]="isLoginButtonDisabled()"
+    />
+  </div>
+</form>
